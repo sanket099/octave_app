@@ -7,17 +7,22 @@ public class MusicClass implements Parcelable {
     private String title;
     private String artist;
     private String path;
+    private int id;
 
-    public MusicClass(String title, String artist,String path) {
+
+
+    public MusicClass(String title, String artist, int id,String path) {
         this.title = title;
         this.artist = artist;
         this.path = path;
+        this.id = id;
     }
 
     protected MusicClass(Parcel in) {
         title = in.readString();
         artist = in.readString();
         path = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<MusicClass> CREATOR = new Creator<MusicClass>() {
@@ -44,6 +49,14 @@ public class MusicClass implements Parcelable {
         return path;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -54,5 +67,6 @@ public class MusicClass implements Parcelable {
         dest.writeString(title);
         dest.writeString(artist);
         dest.writeString(path);
+        dest.writeInt(id);
     }
 }

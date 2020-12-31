@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteList{
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
     public static final String ARTIST = "ARTIST";
     public static final String THIS = "THIS";
     public static final String ARRAY = "Array";
+    public static final String ID = "ID";
     ArrayList<MusicClass> arrayList;
     RecyclerView recyclerView;
     MyAdapter adapter;
@@ -96,19 +100,38 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
     private void getSomeMusic() {
         ContentResolver contentResolver = getContentResolver();
         Uri song = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.Audio.Media._ID,
+               // MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST
+
+                /*MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.ALBUM,*/
+
+
+        };
         Cursor cursor = contentResolver.query(song,null,null,null);
         if(cursor != null && cursor.moveToFirst()){
             int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int data= cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+            int songId = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
+            int size = cursor.getColumnIndex(MediaStore.Audio.Media.SIZE);
+
+            //int duration = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
+
+            // int  data = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
 
             do {
                 String title = cursor.getString(songTitle);
                 String artist = cursor.getString(songArtist);
-                String path = cursor.getString(data);
-
+                //String dura =
+                int id = cursor.getInt(songId);
+                //String datas = cursor.getString(data);
+                System.out.println("id = " + id);
                 //array add
-                MusicClass musicClass = new MusicClass(title,artist,path);
+                MusicClass musicClass = new MusicClass(title,artist,id,"");
                 arrayList.add(musicClass);
             }
             while (cursor.moveToNext());
@@ -116,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         else{
             Toast.makeText(this, "Media Not Found", Toast.LENGTH_SHORT).show();
         }
+        cursor.close();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -154,13 +178,19 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
     @Override
     public void OnnoteClick(MusicClass userClass, int position) {
 
+        System.out.println("userClass.getId() = " + userClass.getId());
 
         startActivity(new Intent(MainActivity.this,MusicPlayActivity.class)
                 .putParcelableArrayListExtra(ARRAY,arrayList)
                 .putExtra(TITLE, userClass.getTitle())
                 .putExtra(THIS,position)
                 .putExtra(ARTIST,userClass.getArtist())
-                .putExtra(PATH,userClass.getPath()));
+                //.putExtra(PATH,userClass.getPath())
+                .putExtra(ID,userClass.getId()));
+
+
+
+              //  .putExtra(PATH,userClass.getPath()));
 
 
 

@@ -140,8 +140,8 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:id="@+id/iv_play"
 
         android:src="@drawable/ic_play"
@@ -153,9 +153,27 @@
         app:layout_constraintHorizontal_bias="0.5"
         android:layout_marginBottom="25dp"
         app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:id="@+id/iv_repeat"
+
+        android:src="@drawable/ic_round_repeat_24"
+        android:clickable="true"
+        android:padding="15dp"
+        android:focusable="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:id="@+id/iv_prev"
 
         android:src="@drawable/ic_prev"
@@ -165,12 +183,12 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.25"
         android:layout_marginBottom="25dp"
         app:layout_constraintStart_toStartOf="parent" />
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:id="@+id/iv_next"
 
         android:src="@drawable/ic_next"
@@ -180,7 +198,23 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.75"
         android:layout_marginBottom="25dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/iv_shuffle"
+
+        android:src="@drawable/ic_round_shuffle_24"
+        android:padding="15dp"
+        android:clickable="true"
+        android:focusable="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        android:layout_marginBottom="15dp"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
